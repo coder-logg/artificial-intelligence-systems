@@ -2,6 +2,7 @@ package algorithm;
 
 import graph.Graph;
 import graph.Node;
+import graph.Path;
 
 import java.util.Stack;
 
@@ -11,11 +12,14 @@ public class IterativeDeepeningDepthFirstSearch extends LimitedDepthFirstSearch{
 	}
 
 	@Override
-	public Stack<Node> search() {
+	public Path search() {
 		visited.clear();
-		Stack<Node> res = new Stack<>();
-		for (int i = 0; (res = super.search()).empty(); i++)
+		Path res;
+		res = super.search();
+		for (int i = 0; (res.getPath()).empty(); i++) {
 			setDepthLimit(i);
+			res = super.search();
+		}
 		return res;
 	}
 }

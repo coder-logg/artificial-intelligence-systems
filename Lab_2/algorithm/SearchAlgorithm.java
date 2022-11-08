@@ -1,9 +1,7 @@
 package algorithm;
 
-import graph.Node;
-
-import java.util.Stack;
+import graph.Path;
 
 public interface SearchAlgorithm {
-	Stack<Node> search();
+	Path search();
 }

@@ -2,8 +2,8 @@ package algorithm;
 
 import graph.Graph;
 import graph.Node;
+import graph.Path;
 
-import java.util.ArrayList;
 import java.util.Stack;
 
 public class LimitedDepthFirstSearch extends DepthFirstSearch {
@@ -35,10 +35,10 @@ public class LimitedDepthFirstSearch extends DepthFirstSearch {
 	}
 
 	@Override
-	public Stack<Node> search() {
+	public Path search() {
 		visited.clear();
 		Stack<Node> res = new Stack<>();
 		dfs(startNode, res);
-		return res;
+		return new Path(res);
 	}
 }

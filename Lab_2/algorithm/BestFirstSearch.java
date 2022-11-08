@@ -2,6 +2,7 @@ package algorithm;
 
 import graph.Graph;
 import graph.Node;
+import graph.Path;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,10 +41,10 @@ public class BestFirstSearch extends AbstractSearchAlgorithm{
 	}
 
 	@Override
-	public Stack<Node> search() {
+	public Path search() {
 		visited.clear();
 		Stack<Node> res = new Stack<>();
 		bestfs(startNode, res);
-		return res;
+		return new Path(res);
 	}
 }

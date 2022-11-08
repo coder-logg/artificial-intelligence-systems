@@ -2,6 +2,7 @@ import algorithm.*;
 import graph.Graph;
 import graph.Node;
 import graph.NotFoundNodeException;
+import graph.Path;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -10,10 +11,10 @@ import java.util.Stack;
 
 public class Main {
 
-	static void printResult(Stack<Node> nodes){
-		for (Node a : nodes)
+	static void printResult(Path path){
+		for (Node a : path.getPath())
 			System.out.print(a.getName() + " ");
-		System.out.println();
+		System.out.println(path.getLength());
 	}
 
 	public static Graph readGraphFromFile(String fileName) throws FileNotFoundException, NotFoundNodeException {

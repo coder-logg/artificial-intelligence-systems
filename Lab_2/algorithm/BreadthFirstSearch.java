@@ -2,6 +2,7 @@ package algorithm;
 
 import graph.Graph;
 import graph.Node;
+import graph.Path;
 
 import java.util.*;
 
@@ -53,7 +54,7 @@ public class BreadthFirstSearch extends AbstractSearchAlgorithm {
 	}
 
 	@Override
-	public Stack<Node> search() {
-		return bfs();
+	public Path search() {
+		return new Path(bfs());
 	}
 }

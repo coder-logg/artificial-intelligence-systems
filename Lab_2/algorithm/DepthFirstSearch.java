@@ -2,6 +2,8 @@ package algorithm;
 
 import graph.Graph;
 import graph.Node;
+import graph.Path;
+
 import java.util.*;
 
 public class DepthFirstSearch extends AbstractSearchAlgorithm {
@@ -30,11 +32,11 @@ public class DepthFirstSearch extends AbstractSearchAlgorithm {
 	}
 
 	@Override
-	public Stack<Node> search() {
+	public Path search() {
 		visited.clear();
 		Stack<Node> res = new Stack<>();
 		dfs(startNode, res);
-		return res;
+		return new Path(res);
 	}
 
 }

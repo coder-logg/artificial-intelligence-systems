@@ -2,6 +2,7 @@ package algorithm;
 
 import graph.Graph;
 import graph.Node;
+import graph.Path;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -63,7 +64,7 @@ public class BidirectionalSearch extends BreadthFirstSearch {
 	}
 
 	@Override
-	public Stack<Node> search() {
+	public Path search() {
 		visitedFromStart.clear();
 		nextToVisitFromStart.clear();
 		wavesNumbersFromStart.clear();
@@ -71,6 +72,6 @@ public class BidirectionalSearch extends BreadthFirstSearch {
 		visitedFromEnd.clear();
 		nextToVisitFromEnd.clear();
 		wavesNumbersFromEnd.clear();
-		return iterate();
+		return new Path(iterate());
 	}
 }

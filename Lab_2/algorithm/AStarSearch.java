@@ -3,14 +3,14 @@ package algorithm;
 import graph.Graph;
 import graph.Node;
 import graph.NotFoundNodeException;
+import graph.Path;
 
 import java.util.ArrayList;
-import java.util.Optional;
+import java.util.Comparator;
 import java.util.Stack;
 import java.util.stream.Collectors;
 
 public class AStarSearch extends AbstractSearchAlgorithm {
-	private int prevWeightSum = 0;
 	private Stack<Node> res;
 	private Stack<Node> path = new Stack<>();
 
@@ -28,17 +28,17 @@ public class AStarSearch extends AbstractSearchAlgorithm {
 			return true;
 		}
 		path.push(curr);
+		Comparator<Node> comparator = (x, y) -> {
+			int xSum = curr.getHeuristicBindingWeight(x) + curr.getBindingWeightWith(x);
+			int ySum = curr.getHeuristicBindingWeight(y) + curr.getBindingWeightWith(y);
+			return  xSum > ySum ? 1 : -1;
+		};
 		ArrayList<Node> adjacentNodes = Graph.getAllNeighbors(curr);
-		ArrayList<Node> nodes = adjacentNodes.stream().filter(x -> !visited.contains(x)).sorted((x, y) -> {
-			try {
-				return curr.getHeuristicBindingWeight(x) + curr.getBindingWeightWith(x) > curr.getHeuristicBindingWeight(y) + curr.getBindingWeightWith(y) ? 1 : -1;
-			} catch (NotFoundNodeException ignored) {}
-			return 0;
-		}).collect(Collectors.toCollection(ArrayList::new));
+		ArrayList<Node> nodes = adjacentNodes.stream().filter(x -> !visited.contains(x))
+				.sorted(comparator)
+				.collect(Collectors.toCollection(ArrayList::new));
 		for (Node node : nodes) {
-			if (ASearch(node))
-			{
-				prevWeightSum += node.getBindingWeightWith(curr);
+			if (ASearch(node)) {
 				return true;
 			}
 		}
@@ -46,18 +46,12 @@ public class AStarSearch extends AbstractSearchAlgorithm {
 		return false;
 	}
 
-	public int getPrevWeightSum() {
-		return prevWeightSum;
-	}
-
 	@Override
-	public Stack<Node> search() {
+	public Path search() {
 		visited.clear();
 		path.clear();
 		res = new Stack<>();
-		try {
-			ASearch(startNode);
-		} catch (NotFoundNodeException ignored) {}
-		return res;
+		ASearch(startNode);
+		return new Path(res);
 	}
 }
